@@ -1,3 +1,5 @@
+const fs=require('fs')
+const path=require('path')
 const express=require('express');
 const app=express();
 const PORT=process.env.PORT||3000;
@@ -12,7 +14,23 @@ app.use(express.urlencoded({ extended:false }))
 
 
 app.get('/',(req,res)=>{
-    res.render('index')
+    const listFiles=[]
+    let filePath=path.join(__dirname,'videos')
+    fs.readdir(filePath,(err,files)=>{
+        if (err){
+            console.log(err)
+        }
+        else{
+            //console.log(files)
+            files.forEach((file)=>{
+                //console.log(file)
+                listFiles.push(file)
+            })
+            //console.log(listFiles)
+            res.render('index',{listFiles})
+        }
+    })
+    
 })
 
 app.use('/stream',stream)

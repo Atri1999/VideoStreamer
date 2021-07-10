@@ -5,8 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Stream</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
 </head>
 <body>
     Hi this is me
+    <div class="container">
+        <% listFiles.forEach(element => { %>
+            <a href="/stream/<%= element %> "><div><img src="./thumbnails/<%= element %>.jpg" width="100%" height="100%"></div></a>
+        <% }) %>
+    </div>
 </body>
 </html>

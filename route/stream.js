@@ -2,18 +2,17 @@ const fs=require('fs')
 const express=require('express')
 const route=express.Router()
 
-route.get('/',(req,res)=>{
-    res.render('stream')
-})
 
-route.get('/video',(req,res)=>{
+
+route.get('/video/:name',(req,res)=>{
     const range=req.headers.range
     if(!range){
         res.status(400).send("Require range header")
     }
-    const filename="bigbuck.mp4"
+    const filename=req.params.name
     const filepath=`./videos/${filename}`
     const filesize=fs.statSync(filepath).size
+    const ext=filename.split('.')[1]
 
     const CHUNK_SIZE=10**5
     const start=Number(range.replace(/\D/g,""))
@@ -25,11 +24,11 @@ route.get('/video',(req,res)=>{
         "Content-Range": `bytes ${start}-${end}/${filesize}`,
         "Accept-Ranges": "bytes",
         "Content-Length": contentLength,
-        "Content-Type": "video/mp4",
+        "Content-Type": `video/${ext}`,
     };
 
-    console.log(headers)
-    res.writeHead(206,headers)
+    //console.log(headers)
+    res.writeHead(206,headers,{ext})
 
     const videostream=fs.createReadStream(filepath,{start,end})
 
@@ -37,6 +36,12 @@ route.get('/video',(req,res)=>{
     
 
     //res.send("This works")
+})
+
+route.get('/:name',(req,res)=>{
+    const name=req.params.name
+    //console.log(name)
+    res.render('stream',{name})
 })
 
 module.exports=route
