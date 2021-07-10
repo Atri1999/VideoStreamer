@@ -5,19 +5,50 @@
 
 body{
     box-sizing: border-box;
-    background-color: aquamarine;
+    background-color: rgb(31, 95, 75);
 }
 
 .container{
+    padding:20px;
     display: flex;
-    background-color: antiquewhite;
+    background-color:rgba(235, 214, 120, 0.349);
     flex-wrap: wrap;
     margin:30px;
 }
 
-.container div{
+.container>div{
+    position:relative;
     margin:20px;
     background-color: blue;
-    height:200px;
-    width:350px;
+    height: 250px;
+    width:22%;
+}
+
+#header{
+    margin:0px;
+    padding:20px 0px 20px 20px;
+    color:bisque;
+    background-color: rgb(19, 18, 18);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+}
+
+.displayName{
+    position: absolute;
+    bottom:0px;
+    right:0px;
+    padding:10px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    background-color: rgb(197, 223, 223);
+    color:rgb(32, 31, 31);
+    visibility: hidden;
+}
+
+.container>div:hover{
+    cursor: pointer;
+}
+
+.container>div:hover>.displayName{
+    visibility: visible;
 }

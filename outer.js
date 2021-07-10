@@ -24,7 +24,7 @@ fs.readdir(direc,(err,files)=>{
             })
             .takeScreenshots({
                 filename:`${file}.jpg`,
-                timemarks:[10]
+                timemarks:[5]
             },'./public/thumbnails');
     })
     
